@@ -36,12 +36,18 @@
     <div style="background-color: rgba(10, 5, 5, 0.95); border-bottom: 2px solid #5a2020; padding: 18px 0; box-shadow: 0 4px 15px rgba(0,0,0,0.9); position: relative; z-index: 10;">
         <span style="color: #ff3333; font-weight: bold; font-size: 24px; letter-spacing: 2px; margin-right: 35px; text-shadow: 0 0 10px rgba(255, 51, 51, 0.6);">⚔️ MU ARKANO</span>
         <span onclick="changePage('inicio', this)" class="nav-link active">Inicio</span>
-        <span onclick="changePage('registro', this)" class="nav-link">Registrarse</span>
+        <span onclick="changePage('login', this)" id="nav-login-btn" class="nav-link">Iniciar Sesión</span>
         <span onclick="changePage('tienda', this)" class="nav-link">Tienda Web</span>
     </div>
 
     <!-- CONTENEDOR CENTRAL -->
     <div style="max-width: 1100px; margin: 0 auto; background-color: rgba(15, 10, 10, 0.88); box-shadow: 0 0 40px rgba(0,0,0,1); min-height: 100vh; border-left: 2px solid #3e2723; border-right: 2px solid #3e2723; padding-top: 480px; padding-bottom: 50px;">
+
+        <!-- ESTADO DE SESIÓN (Mensaje flotante superior si está logeado) -->
+        <div id="user-logged-banner" style="display: none; max-width: 950px; margin: -20px auto 20px auto; background: rgba(0, 128, 0, 0.2); border: 1px solid green; padding: 10px; border-radius: 4px; color: #fff; font-weight: bold; font-size: 14px;">
+            👤 Conectado como: <span id="logged-username" style="color: #ffd700;"></span> 
+            <span onclick="logout()" style="color: #ff3333; margin-left: 15px; cursor: pointer; text-decoration: underline; font-size: 12px;">[Cerrar Sesión]</span>
+        </div>
 
         <!-- ================= SECCIÓN INICIO ================= -->
         <div id="sec-inicio" class="page-section active">
@@ -51,8 +57,8 @@
                 <a href="TU_ENLACE_DE_DISCORD" target="_blank" style="background: linear-gradient(#1a1a1a, #0a0a0a); color: #ff3333; border: 2px solid #ff3333; padding: 14px 28px; text-decoration: none; font-weight: bold; border-radius: 4px; display: inline-block; margin: 10px; box-shadow: 0 0 15px rgba(255,51,51,0.3); text-transform: uppercase; font-size: 14px; letter-spacing: 1px;">
                     <i class="fab fa-discord"></i> Discord Oficial
                 </a>
-                <span onclick="changePage('registro', document.querySelectorAll('.nav-link')[1])" style="background: linear-gradient(#795548, #4e342e); color: #fff; padding: 16px 30px; text-decoration: none; font-weight: bold; border-radius: 4px; display: inline-block; margin: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.6); text-transform: uppercase; font-size: 14px; letter-spacing: 1px; border: 1px solid #3e2723; cursor: pointer;">
-                    ⚡ Crear Cuenta
+                <span onclick="changePage('login', document.getElementById('nav-login-btn'))" style="background: linear-gradient(#795548, #4e342e); color: #fff; padding: 16px 30px; text-decoration: none; font-weight: bold; border-radius: 4px; display: inline-block; margin: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.6); text-transform: uppercase; font-size: 14px; letter-spacing: 1px; border: 1px solid #3e2723; cursor: pointer;">
+                    ⚡ Ingresar al Sitio
                 </span>
                 <span onclick="changePage('tienda', document.querySelectorAll('.nav-link')[2])" style="background: linear-gradient(#b8860b, #654321); color: #fff; padding: 16px 30px; text-decoration: none; font-weight: bold; border-radius: 4px; display: inline-block; margin: 10px; box-shadow: 0 4px 15px rgba(184,134,11,0.4); text-transform: uppercase; font-size: 14px; letter-spacing: 1px; border: 1px solid #b8860b; cursor: pointer;">
                     💰 Tienda Web
@@ -72,20 +78,21 @@
             </div>
         </div>
 
-        <!-- ================= SECCIÓN REGISTRO ================= -->
-        <div id="sec-registro" class="page-section">
-            <div style="max-width: 500px; margin: 0 auto; background-color: rgba(20, 15, 15, 0.95); padding: 30px; border-radius: 6px; border: 2px solid #4e342e; box-shadow: 0 10px 30px rgba(0,0,0,0.8); text-align: left;">
-                <h3 style="color: #ff3333; border-bottom: 1px solid #4e342e; padding-bottom: 12px; margin-top: 0; text-transform: uppercase; letter-spacing: 2px; text-align: center;">🛡️ Registrar Nueva Cuenta</h3>
-                <form onsubmit="alert('¡Cuenta creada con éxito en MuArkano!'); return false;" style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
+        <!-- ================= SECCIÓN INICIAR SESIÓN ================= -->
+        <div id="sec-login" class="page-section">
+            <div style="max-width: 400px; margin: 0 auto; background-color: rgba(20, 15, 15, 0.95); padding: 30px; border-radius: 6px; border: 2px solid #4e342e; box-shadow: 0 10px 30px rgba(0,0,0,0.8); text-align: left;">
+                <h3 style="color: #ff3333; border-bottom: 1px solid #4e342e; padding-bottom: 12px; margin-top: 0; text-transform: uppercase; letter-spacing: 2px; text-align: center;">🛡️ Ingresar a MuArkano</h3>
+                
+                <form onsubmit="loginUser(event)" style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
                     <div>
                         <label style="color: #c4a484; font-size: 14px; font-weight: bold; display: block; margin-bottom: 5px;">Usuario:</label>
-                        <input type="text" required placeholder="Ej: arkanouser" style="width: 100%; box-sizing: border-box; background-color: #100a0a; border: 1px solid #4e342e; color: #fff; padding: 10px; border-radius: 4px;">
+                        <input type="text" id="login-username" required placeholder="Ingresa tu usuario" style="width: 100%; box-sizing: border-box; background-color: #100a0a; border: 1px solid #4e342e; color: #fff; padding: 10px; border-radius: 4px;">
                     </div>
                     <div>
                         <label style="color: #c4a484; font-size: 14px; font-weight: bold; display: block; margin-bottom: 5px;">Contraseña:</label>
-                        <input type="password" required placeholder="••••••••" style="width: 100%; box-sizing: border-box; background-color: #100a0a; border: 1px solid #4e342e; color: #fff; padding: 10px; border-radius: 4px;">
+                        <input type="password" id="login-password" required placeholder="••••••••" style="width: 100%; box-sizing: border-box; background-color: #100a0a; border: 1px solid #4e342e; color: #fff; padding: 10px; border-radius: 4px;">
                     </div>
-                    <button type="submit" style="width: 100%; background: linear-gradient(#8b0000, #4a0000); color: white; border: 1px solid #ff3333; padding: 14px; font-size: 16px; font-weight: bold; border-radius: 4px; cursor: pointer; text-transform: uppercase; margin-top: 10px;">⚔️ Crear Mi Cuenta</button>
+                    <button type="submit" style="width: 100%; background: linear-gradient(#8b0000, #4a0000); color: white; border: 1px solid #ff3333; padding: 14px; font-size: 16px; font-weight: bold; border-radius: 4px; cursor: pointer; text-transform: uppercase; margin-top: 10px;">⚔️ Entrar</button>
                 </form>
             </div>
         </div>
@@ -101,13 +108,13 @@
                 </div>
                 <!-- Formulario de Canje -->
                 <div style="display: flex; gap: 10px; align-items: center;">
-                    <input type="text" id="codigo-input" placeholder="Ingresa tu código de pago..." style="background-color: #100a0a; border: 1px solid #4e342e; color: #fff; padding: 10px; border-radius: 4px; width: 230px;">
+                    <input type="text" id="codigo-input" placeholder="Ingresa tu código..." style="background-color: #100a0a; border: 1px solid #4e342e; color: #fff; padding: 10px; border-radius: 4px; width: 230px;">
                     <button onclick="canjearCodigo()" style="background-color: #ff3333; color: white; border: none; padding: 10px 20px; font-weight: bold; border-radius: 4px; cursor: pointer; text-transform: uppercase;">Canjear</button>
                 </div>
             </div>
 
             <h2 style="color: #ff3333; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 10px;">🛒 ARSENAL ARCANO (TIENDA WEB)</h2>
-            <p style="color: #c4a484; font-size: 14px; margin-bottom: 30px;">EQUÍPATE CON LOS MEJORES ITEMS DEL SERVIDOR</p>
+            <p style="color: #c4a484; font-size: 14px; margin-bottom: 30px;">EQUÍPATE CON LOS MEJORES ITEMS UTILIZANDO ARCANO COINS</p>
 
             <!-- MENÚ INTERNO DE PERSONAJES -->
             <div class="tienda-tabs">
@@ -128,25 +135,25 @@
                         <div class="item-card">
                             <img src="https://i.imgur.com/KsnTf6r.png" alt="Set Dragon">
                             <h4>Set Dragon Full +15</h4>
-                            <p>15000 Coins</p>
+                            <p>15000 Arcano Coins</p>
                             <button class="buy-btn" onclick="comprarItem('Set Dragon Full +15', 15000)">Comprar</button>
                         </div>
                         <div class="item-card">
                             <img src="https://i.imgur.com/gKCH0N5.png" alt="Bone Blade">
                             <h4>Bone Blade Full +15</h4>
-                            <p>8500 Coins</p>
+                            <p>8500 Arcano Coins</p>
                             <button class="buy-btn" onclick="comprarItem('Bone Blade Full +15', 8500)">Comprar</button>
                         </div>
                         <div class="item-card">
                             <img src="https://i.imgur.com/Z452zBq.png" alt="Alas S3 BK">
                             <h4>Wings of Dragon S3</h4>
-                            <p>10000 Coins</p>
+                            <p>10000 Arcano Coins</p>
                             <button class="buy-btn" onclick="comprarItem('Wings of Dragon S3', 10000)">Comprar</button>
                         </div>
                         <div class="item-card">
                             <img src="https://i.imgur.com/G4ABy9i.png" alt="Fenrir Rojo">
                             <h4>Horn of Fenrir (Rojo)</h4>
-                            <p>7000 Coins</p>
+                            <p>7000 Arcano Coins</p>
                             <button class="buy-btn" onclick="comprarItem('Horn of Fenrir (Rojo)', 7000)">Comprar</button>
                         </div>
                     </div>
@@ -159,19 +166,19 @@
                         <div class="item-card">
                             <img src="https://i.imgur.com/HbyG9iJ.png" alt="Set Grand Soul">
                             <h4>Set Grand Soul Full</h4>
-                            <p>15000 Coins</p>
+                            <p>15000 Arcano Coins</p>
                             <button class="buy-btn" onclick="comprarItem('Set Grand Soul Full', 15000)">Comprar</button>
                         </div>
                         <div class="item-card">
                             <img src="https://i.imgur.com/Zq0mE4G.png" alt="Staff Kundun">
                             <h4>Kundan Staff Full</h4>
-                            <p>8000 Coins</p>
+                            <p>8000 Arcano Coins</p>
                             <button class="buy-btn" onclick="comprarItem('Kundan Staff Full', 8000)">Comprar</button>
                         </div>
                         <div class="item-card">
                             <img src="https://i.imgur.com/v8tT9Kj.png" alt="Alas S3 SM">
                             <h4>Wings of Soul S3</h4>
-                            <p>10000 Coins</p>
+                            <p>10000 Arcano Coins</p>
                             <button class="buy-btn" onclick="comprarItem('Wings of Soul S3', 10000)">Comprar</button>
                         </div>
                     </div>
@@ -184,13 +191,13 @@
                         <div class="item-card">
                             <img src="https://i.imgur.com/T0bHhE9.png" alt="Set Red Spirit">
                             <h4>Set Red Spirit Full</h4>
-                            <p>14500 Coins</p>
+                            <p>14500 Arcano Coins</p>
                             <button class="buy-btn" onclick="comprarItem('Set Red Spirit Full', 14500)">Comprar</button>
                         </div>
                         <div class="item-card">
                             <img src="https://i.imgur.com/Csc9ZTe.png" alt="Albatross Bow">
                             <h4>Albatross Bow Full</h4>
-                            <p>8500 Coins</p>
+                            <p>8500 Arcano Coins</p>
                             <button class="buy-btn" onclick="comprarItem('Albatross Bow Full', 8500)">Comprar</button>
                         </div>
                     </div>
@@ -203,13 +210,13 @@
                         <div class="item-card">
                             <img src="https://i.imgur.com/W2xXbAn.png" alt="Set Dark Steel">
                             <h4>Set Dark Steel Full</h4>
-                            <p>16000 Coins</p>
+                            <p>16000 Arcano Coins</p>
                             <button class="buy-btn" onclick="comprarItem('Set Dark Steel Full', 16000)">Comprar</button>
                         </div>
                         <div class="item-card">
                             <img src="https://i.imgur.com/V9bB5Zp.png" alt="Dark Horse">
                             <h4>Dark Horse Mascota</h4>
-                            <p>6000 Coins</p>
+                            <p>6000 Arcano Coins</p>
                             <button class="buy-btn" onclick="comprarItem('Dark Horse Mascota', 6000)">Comprar</button>
                         </div>
                     </div>
@@ -222,7 +229,7 @@
                         <div class="item-card">
                             <img src="https://i.imgur.com/xXGvRka.png" alt="Set Red Wing">
                             <h4>Set Red Wing Full</h4>
-                            <p>15000 Coins</p>
+                            <p>15000 Arcano Coins</p>
                             <button class="buy-btn" onclick="comprarItem('Set Red Wing Full', 15000)">Comprar</button>
                         </div>
                     </div>
@@ -241,18 +248,61 @@
         </div>
 
         <div style="color: #555; font-size: 12px; padding: 20px 0; margin-top: 40px; border-top: 1px solid #3e2723;">
-            <p>© 2026 MuArkano Team. Todos los derechos reservados.</p>
+            <p>© 2026 MuArkano Team. Todos los derechos resonators.</p>
         </div>
     </div>
 
     <!-- SCRIPTS DE LÓGICA -->
     <script>
-        // BASE DE DATOS DE MONEDAS (Guardadas localmente en el navegador del usuario)
+        // --- 1. CONFIGURACIÓN DEL LOGIN ---
+        let usuarioLogeado = localStorage.getItem('usuarioLogeado') || null;
+
+        function verificarSesion() {
+            const banner = document.getElementById('user-logged-banner');
+            const usernameSpan = document.getElementById('logged-username');
+            const navLoginBtn = document.getElementById('nav-login-btn');
+
+            if (usuarioLogeado) {
+                banner.style.display = 'block';
+                usernameSpan.innerText = usuarioLogeado;
+                navLoginBtn.innerText = "Mi Cuenta";
+            } else {
+                banner.style.display = 'none';
+                navLoginBtn.innerText = "Iniciar Sesión";
+            }
+        }
+
+        function loginUser(event) {
+            event.preventDefault();
+            const userIn = document.getElementById('login-username').value.trim();
+            const passIn = document.getElementById('login-password').value;
+
+            // Validación de credenciales solicitadas
+            if (userIn === "AMDSUM" && passIn === "1234") {
+                usuarioLogeado = userIn;
+                localStorage.setItem('usuarioLogeado', userIn);
+                verificarSesion();
+                alert('¡Bienvenido Administrador AMDSUM!');
+                changePage('inicio', document.querySelectorAll('.nav-link')[0]);
+            } else {
+                alert('Usuario o contraseña incorrectos.');
+            }
+        }
+
+        function logout() {
+            usuarioLogeado = null;
+            localStorage.removeItem('usuarioLogeado');
+            verificarSesion();
+            alert('Has cerrado sesión.');
+            changePage('inicio', document.querySelectorAll('.nav-link')[0]);
+        }
+
+
+        // --- 2. SISTEMA DE MONEDAS Y CÓDIGOS ---
         let totalCoins = parseInt(localStorage.getItem('arcanocoins')) || 0;
         document.getElementById('saldo-monedas').innerText = totalCoins;
 
-        // LISTA DE CÓDIGOS DE EJEMPLO (Tú puedes editar o añadir más códigos aquí)
-        // Estructura: 'CODIGO': Cantidad_De_Monedas
+        // Base de datos de códigos válidos para usar "arkano con" (Arcano Coins)
         const codigosValidos = {
             'ARKANO500': 500,
             'TX9921': 5000,
@@ -260,8 +310,14 @@
             'VIPCOINS': 20000
         };
 
-        // Función para procesar el canje
         function canjearCodigo() {
+            // Se requiere estar logeado para reclamar códigos
+            if (!usuarioLogeado) {
+                alert('Debes iniciar sesión para canjear códigos en tu billetera.');
+                changePage('login', document.getElementById('nav-login-btn'));
+                return;
+            }
+
             const input = document.getElementById('codigo-input');
             const codigo = input.value.trim().toUpperCase();
 
@@ -274,38 +330,42 @@
                 let premio = codigosValidos[codigo];
                 totalCoins += premio;
                 
-                // Guardar saldo
                 localStorage.setItem('arcanocoins', totalCoins);
                 document.getElementById('saldo-monedas').innerText = totalCoins;
                 
-                alert('¡Código válido! Se han acreditado ' + premio + ' Arcano Coins a tu cuenta.');
+                alert('¡Código válido! Se han acreditado ' + premio + ' Arcano Coins a tu billetera.');
                 
-                // Opcional: Eliminar el código para que no se use dos veces en la misma sesión
-                delete codigosValidos[codigo]; 
+                delete codigosValidos[codigo]; // Desactiva el código en esta sesión tras su uso
                 input.value = '';
             } else {
                 alert('El código ingresado es incorrecto, ya fue usado o no existe.');
             }
         }
 
-        // Función para comprar un ítem
+        // --- 3. TIENDA EXCLUSIVA EN ARCANO COINS ---
         function comprarItem(nombreItem, costo) {
+            if (!usuarioLogeado) {
+                alert('Por favor, inicia sesión antes de realizar compras.');
+                changePage('login', document.getElementById('nav-login-btn'));
+                return;
+            }
+
             if (totalCoins >= costo) {
                 totalCoins -= costo;
                 localStorage.setItem('arcanocoins', totalCoins);
                 document.getElementById('saldo-monedas').innerText = totalCoins;
-                alert('¡Compra realizada con éxito!\nHas adquirido: ' + nombreItem + '\nContacta al Administrador por Discord para la entrega en el juego.');
+                alert('¡Compra realizada con éxito!\nHas adquirido: ' + nombreItem + '\nCosto: ' + costo + ' Arcano Coins.\nContacta al soporte en Discord para la entrega de tus ítems.');
             } else {
-                alert('No tienes suficientes Arcano Coins para comprar este ítem.\nNecesitas ' + costo + ' Coins.');
+                alert('No tienes suficientes Arcano Coins.\nNecesitas ' + costo + ' Arcano Coins para este ítem.');
             }
         }
 
-        // Funciones de navegación
+        // --- 4. CONTROL DE NAVEGACIÓN ---
         function changePage(pageId, element) {
             document.querySelectorAll('.page-section').forEach(section => section.classList.remove('active'));
             document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
             document.getElementById('sec-' + pageId).classList.add('active');
-            element.classList.add('active');
+            if(element) element.classList.add('active');
             window.scrollTo(0, 0);
         }
 
@@ -315,6 +375,9 @@
             document.getElementById('tienda-' + classId).classList.add('active');
             btnElement.classList.add('active');
         }
+
+        // Ejecutar al cargar la página
+        verificarSesion();
     </script>
 </body>
 </html>
