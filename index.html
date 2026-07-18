@@ -10,6 +10,20 @@
         .nav-link.active { color: #fff; border-bottom: 2px solid #ff3333; }
         .page-section { display: none; }
         .page-section.active { display: block; }
+        
+        /* Estilos para las sub-pestañas de la tienda */
+        .tienda-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 30px; }
+        .tab-btn { background-color: #1a1a1a; color: #c4a484; border: 1px solid #4e342e; padding: 10px 20px; font-weight: bold; cursor: pointer; text-transform: uppercase; border-radius: 4px; font-size: 13px; transition: 0.3s; }
+        .tab-btn.active { background-color: #ff3333; color: #fff; border-color: #ff3333; box-shadow: 0 0 10px rgba(255,51,51,0.4); }
+        .tienda-section { display: none; }
+        .tienda-section.active { display: block; }
+        
+        /* Grid de Items */
+        .items-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+        .item-card { background-color: #100a0a; border: 1px solid #4e342e; border-radius: 4px; width: 210px; padding: 15px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        .item-card img { height: 95px; max-width: 100%; object-fit: contain; margin-bottom: 10px; display: block; margin-left: auto; margin-right: auto; }
+        .item-card h4 { color: #fff; margin: 5px 0; font-size: 15px; }
+        .item-card p { color: #ff3333; font-weight: bold; margin: 5px 0 0 0; }
     </style>
 </head>
 <body style="background-color: #000000; background-image: url('WhatsApp Image 2026-07-16 at 21.08.48.jpeg'); background-repeat: no-repeat; background-position: top center; background-attachment: fixed; background-size: 1920px auto; color: #e0e0e0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; text-align: center;">
@@ -46,19 +60,11 @@
                 <div style="flex: 1; min-width: 320px; background-color: rgba(20, 15, 15, 0.95); padding: 25px; border-radius: 4px; border: 2px solid #4e342e; text-align: left; box-shadow: 0 5px 20px rgba(0,0,0,0.8);">
                     <h3 style="color: #ff3333; border-bottom: 1px solid #4e342e; padding-bottom: 10px; margin-top: 0; text-transform: uppercase; letter-spacing: 1px;">📊 Información del Servidor</h3>
                     <table style="width: 100%; border-collapse: collapse; font-size: 15px;">
-                        <tr style="border-bottom: 1px solid #2a1a1a;"><td style="padding: 12px 0; color: #c4a484;">Versión</td><td style="text-align: right; font-weight: bold; color: #fff;">Season 6 Ep 3 Clásica</td></tr>
+                        <tr style="border-bottom: 1px solid #2a1a1a;"><td style="padding: 12px 0; color: #c4a484;">Versión</td><td style="text-align: right; font-weight: bold; color: #fff;">Season 6 Ep 3</td></tr>
                         <tr style="border-bottom: 1px solid #2a1a1a;"><td style="padding: 12px 0; color: #ff3333;">Experiencia (Exp)</td><td style="text-align: right; font-weight: bold; color: #ff3333;">5000x</td></tr>
                         <tr style="border-bottom: 1px solid #2a1a1a;"><td style="padding: 12px 0; color: #c4a484;">Drop Rate</td><td style="text-align: right; font-weight: bold; color: #fff;">60%</td></tr>
                         <tr><td style="padding: 12px 0; color: #c4a484;">Server Estado</td><td style="text-align: right; font-weight: bold; color: #ff3333; text-shadow: 0 0 5px #ff3333;">🟢 ONLINE</td></tr>
                     </table>
-                </div>
-
-                <div style="flex: 1; min-width: 320px; background-color: rgba(20, 15, 15, 0.95); padding: 25px; border-radius: 4px; border: 2px solid #4e342e; text-align: left; box-shadow: 0 5px 20px rgba(0,0,0,0.8);">
-                    <h3 style="color: #ff3333; border-bottom: 1px solid #4e342e; padding-bottom: 10px; margin-top: 0; text-transform: uppercase; letter-spacing: 1px;">📜 Leyes del Servidor</h3>
-                    <ol style="line-height: 1.8; padding-left: 20px; font-size: 14px; color: #d0c0c0;">
-                        <li><strong style="color: #fff;">Respeto ante todo:</strong> Cero tolerancia a la discriminación.</li>
-                        <li><strong style="color: #fff;">Juego Limpio:</strong> El uso de hacks dará baneo permanente.</li>
-                    </ol>
                 </div>
             </div>
         </div>
@@ -69,7 +75,7 @@
                 <h3 style="color: #ff3333; border-bottom: 1px solid #4e342e; padding-bottom: 12px; margin-top: 0; text-transform: uppercase; letter-spacing: 2px; text-align: center;">🛡️ Registrar Nueva Cuenta</h3>
                 <form onsubmit="alert('¡Cuenta creada con éxito en MuArkano!'); return false;" style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
                     <div>
-                        <label style="color: #c4a484; font-size: 14px; font-weight: bold; display: block; margin-bottom: 5px;">Usuario (Login):</label>
+                        <label style="color: #c4a484; font-size: 14px; font-weight: bold; display: block; margin-bottom: 5px;">Usuario:</label>
                         <input type="text" required placeholder="Ej: arkanouser" style="width: 100%; box-sizing: border-box; background-color: #100a0a; border: 1px solid #4e342e; color: #fff; padding: 10px; border-radius: 4px;">
                     </div>
                     <div>
@@ -88,51 +94,159 @@
         <!-- ================= SECCIÓN TIENDA WEB ================= -->
         <div id="sec-tienda" class="page-section">
             <h2 style="color: #ff3333; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 10px;">🛒 ARSENAL ARCANO (TIENDA WEB)</h2>
-            <p style="color: #c4a484; font-size: 14px; margin-bottom: 40px;">EQUÍPATE CON LOS MEJORES ITEMS FULL +15</p>
+            <p style="color: #c4a484; font-size: 14px; margin-bottom: 30px;">EQUÍPATE CON LOS MEJORES ITEMS DEL SERVIDOR</p>
 
-            <!-- BK -->
-            <div style="background-color: rgba(25, 15, 15, 0.95); border: 2px solid #5a2020; border-radius: 6px; padding: 20px; margin: 20px auto; max-width: 950px;">
-                <h3 style="color: #fff; background-color: #5a2020; padding: 8px; margin: -20px -20px 20px -20px; text-transform: uppercase; font-size: 14px;">🔴 SECCIÓN BLADE KNIGHT (BK)</h3>
-                <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
-                    <div style="background-color: #100a0a; border: 1px solid #4e342e; border-radius: 4px; width: 210px; padding: 15px;">
-                        <img src="https://i.ibb.co/Xf8Yg8H/dragon.png" alt="Set Dragon" style="height: 90px; max-width: 100%; object-fit: contain; margin-bottom: 10px;">
-                        <h4 style="color: #fff; margin: 5px 0;">Set Dragon Full</h4>
-                        <p style="color: #ff3333; font-weight: bold;">$15.000 ARS</p>
-                    </div>
-                    <div style="background-color: #100a0a; border: 1px solid #4e342e; border-radius: 4px; width: 210px; padding: 15px;">
-                        <img src="https://i.ibb.co/wctYm0n/boneblade.png" alt="Bone Blade" style="height: 90px; max-width: 100%; object-fit: contain; margin-bottom: 10px;">
-                        <h4 style="color: #fff; margin: 5px 0;">Bone Blade Full</h4>
-                        <p style="color: #ff3333; font-weight: bold;">$8.500 ARS</p>
-                    </div>
-                </div>
+            <!-- MENÚ INTERNO DE PERSONAJES -->
+            <div class="tienda-tabs">
+                <button class="tab-btn active" onclick="changeClassTab('bk', this)">Blade Knight</button>
+                <button class="tab-btn" onclick="changeClassTab('sm', this)">Soul Master</button>
+                <button class="tab-btn" onclick="changeClassTab('elf', this)">High Elf</button>
+                <button class="tab-btn" onclick="changeClassTab('dl', this)">Dark Lord</button>
+                <button class="tab-btn" onclick="changeClassTab('sum', this)">Summoner</button>
             </div>
 
-            <!-- SM -->
-            <div style="background-color: rgba(15, 20, 30, 0.95); border: 2px solid #203a5a; border-radius: 6px; padding: 20px; margin: 20px auto; max-width: 950px;">
-                <h3 style="color: #fff; background-color: #203a5a; padding: 8px; margin: -20px -20px 20px -20px; text-transform: uppercase; font-size: 14px;">🔵 SECCIÓN GRAND MASTER (SM)</h3>
-                <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
-                    <div style="background-color: #0a0d14; border: 1px solid #203a5a; border-radius: 4px; width: 210px; padding: 15px;">
-                        <img src="https://i.ibb.co/gSTC4wP/grandsoul.png" alt="Set Grand Soul" style="height: 90px; max-width: 100%; object-fit: contain; margin-bottom: 10px;">
-                        <h4 style="color: #fff; margin: 5px 0;">Set Grand Soul</h4>
-                        <p style="color: #3385ff; font-weight: bold;">$15.000 ARS</p>
+            <!-- CONTENIDO DE ITEMS POR SECCIÓN -->
+            <div style="max-width: 950px; margin: 0 auto; background-color: rgba(20, 15, 15, 0.95); border: 2px solid #4e342e; border-radius: 6px; padding: 25px;">
+                
+                <!-- BLADE KNIGHT (BK) -->
+                <div id="tienda-bk" class="tienda-section active">
+                    <h3 style="color: #ff3333; border-bottom: 1px solid #4e342e; padding-bottom: 10px; margin-top: 0; text-transform: uppercase; font-size: 14px; letter-spacing: 1px; text-align: left;">🔴 ARSENAL PARA BLADE KNIGHT</h3>
+                    <div class="items-grid">
+                        <div class="item-card">
+                            <img src="https://i.imgur.com/KsnTf6r.png" alt="Set Dragon">
+                            <h4>Set Dragon Full +15</h4>
+                            <p>$15.000 ARS</p>
+                        </div>
+                        <div class="item-card">
+                            <img src="https://i.imgur.com/gKCH0N5.png" alt="Bone Blade">
+                            <h4>Bone Blade Full +15</h4>
+                            <p>$8.500 ARS</p>
+                        </div>
+                        <div class="item-card">
+                            <img src="https://i.imgur.com/Z452zBq.png" alt="Alas S3 BK">
+                            <h4>Wings of Dragon S3</h4>
+                            <p>$10.000 ARS</p>
+                        </div>
+                        <div class="item-card">
+                            <img src="https://i.imgur.com/G4ABy9i.png" alt="Fenrir Rojo">
+                            <h4>Horn of Fenrir (Rojo)</h4>
+                            <p>$7.000 ARS</p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- ELF -->
-            <div style="background-color: rgba(15, 25, 15, 0.95); border: 2px solid #205a2e; border-radius: 6px; padding: 20px; margin: 20px auto; max-width: 950px;">
-                <h3 style="color: #fff; background-color: #205a2e; padding: 8px; margin: -20px -20px 20px -20px; text-transform: uppercase; font-size: 14px;">🟢 SECCIÓN HIGH ELF (ELF)</h3>
-                <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
-                    <div style="background-color: #0a140d; border: 1px solid #205a2e; border-radius: 4px; width: 210px; padding: 15px;">
-                        <img src="https://i.ibb.co/vksH60f/redspirit.png" alt="Set Red Spirit" style="height: 90px; max-width: 100%; object-fit: contain; margin-bottom: 10px;">
-                        <h4 style="color: #fff; margin: 5px 0;">Set Red Spirit</h4>
-                        <p style="color: #25d366; font-weight: bold;">$14.500 ARS</p>
+                <!-- SOUL MASTER (SM) -->
+                <div id="tienda-sm" class="tienda-section">
+                    <h3 style="color: #3385ff; border-bottom: 1px solid #203a5a; padding-bottom: 10px; margin-top: 0; text-transform: uppercase; font-size: 14px; letter-spacing: 1px; text-align: left;">🔵 ARSENAL PARA SOUL MASTER</h3>
+                    <div class="items-grid">
+                        <div class="item-card">
+                            <img src="https://i.imgur.com/HbyG9iJ.png" alt="Set Grand Soul">
+                            <h4>Set Grand Soul Full</h4>
+                            <p>$15.000 ARS</p>
+                        </div>
+                        <div class="item-card">
+                            <img src="https://i.imgur.com/Zq0mE4G.png" alt="Staff Kundun">
+                            <h4>Kundan Staff Full</h4>
+                            <p>$8.000 ARS</p>
+                        </div>
+                        <div class="item-card">
+                            <img src="https://i.imgur.com/v8tT9Kj.png" alt="Alas S3 SM">
+                            <h4>Wings of Soul S3</h4>
+                            <p>$10.000 ARS</p>
+                        </div>
+                        <div class="item-card">
+                            <img src="https://i.imgur.com/G4ABy9i.png" alt="Fenrir">
+                            <h4>Horn of Fenrir (Rojo)</h4>
+                            <p>$7.000 ARS</p>
+                        </div>
                     </div>
                 </div>
+
+                <!-- HIGH ELF (ELF) -->
+                <div id="tienda-elf" class="tienda-section">
+                    <h3 style="color: #25d366; border-bottom: 1px solid #205a2e; padding-bottom: 10px; margin-top: 0; text-transform: uppercase; font-size: 14px; letter-spacing: 1px; text-align: left;">🟢 ARSENAL PARA HIGH ELF</h3>
+                    <div class="items-grid">
+                        <div class="item-card">
+                            <img src="https://i.imgur.com/T0bHhE9.png" alt="Set Red Spirit">
+                            <h4>Set Red Spirit Full</h4>
+                            <p>$14.500 ARS</p>
+                        </div>
+                        <div class="item-card">
+                            <img src="https://i.imgur.com/Csc9ZTe.png" alt="Albatross Bow">
+                            <h4>Albatross Bow Full</h4>
+                            <p>$8.500 ARS</p>
+                        </div>
+                        <div class="item-card">
+                            <img src="https://i.imgur.com/p5AymA6.png" alt="Alas S3 Elf">
+                            <h4>Wings of Spirits S3</h4>
+                            <p>$10.000 ARS</p>
+                        </div>
+                        <div class="item-card">
+                            <img src="https://i.imgur.com/G4ABy9i.png" alt="Fenrir">
+                            <h4>Horn of Fenrir (Rojo)</h4>
+                            <p>$7.000 ARS</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DARK LORD (DL) -->
+                <div id="tienda-dl" class="tienda-section">
+                    <h3 style="color: #b8860b; border-bottom: 1px solid #654321; padding-bottom: 10px; margin-top: 0; text-transform: uppercase; font-size: 14px; letter-spacing: 1px; text-align: left;">🟡 ARSENAL PARA DARK LORD</h3>
+                    <div class="items-grid">
+                        <div class="item-card">
+                            <img src="https://i.imgur.com/W2xXbAn.png" alt="Set Dark Steel">
+                            <h4>Set Dark Steel Full</h4>
+                            <p>$16.000 ARS</p>
+                        </div>
+                        <div class="item-card">
+                            <img src="https://i.imgur.com/xTscQO2.png" alt="Shining Scepter">
+                            <h4>Shining Scepter Full</h4>
+                            <p>$9.000 ARS</p>
+                        </div>
+                        <div class="item-card">
+                            <img src="https://i.imgur.com/Z4pL7pZ.png" alt="Capa S3 DL">
+                            <h4>Mantle of Monarch S3</h4>
+                            <p>$11.500 ARS</p>
+                        </div>
+                        <div class="item-card">
+                            <img src="https://i.imgur.com/V9bB5Zp.png" alt="Dark Horse">
+                            <h4>Dark Horse Mascota</h4>
+                            <p>$6.000 ARS</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUMMONER (SUM) -->
+                <div id="tienda-sum" class="tienda-section">
+                    <h3 style="color: #e0115f; border-bottom: 1px solid #500a20; padding-bottom: 10px; margin-top: 0; text-transform: uppercase; font-size: 14px; letter-spacing: 1px; text-align: left;">🔮 ARSENAL PARA SUMMONER</h3>
+                    <div class="items-grid">
+                        <div class="item-card">
+                            <img src="https://i.imgur.com/xXGvRka.png" alt="Set Red Wing">
+                            <h4>Set Red Wing Full</h4>
+                            <p>$15.000 ARS</p>
+                        </div>
+                        <div class="item-card">
+                            <img src="https://i.imgur.com/N8qitT9.png" alt="Demonic Stick">
+                            <h4>Demonic Stick Full</h4>
+                            <p>$8.500 ARS</p>
+                        </div>
+                        <div class="item-card">
+                            <img src="https://i.imgur.com/xPZit81.png" alt="Alas S3 Sum">
+                            <h4>Wings of Despair S3</h4>
+                            <p>$10.000 ARS</p>
+                        </div>
+                        <div class="item-card">
+                            <img src="https://i.imgur.com/G4ABy9i.png" alt="Fenrir">
+                            <h4>Horn of Fenrir (Rojo)</h4>
+                            <p>$7.000 ARS</p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
-        <!-- SECCIÓN DE REDES SOCIALES (Siempre visible abajo) -->
+        <!-- SECCIÓN DE REDES SOCIALES -->
         <div style="max-width: 950px; margin: 50px auto 0 auto; padding: 0 20px; border-top: 1px solid #3e2723; padding-top: 30px;">
             <h3 style="color: #ff3333; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px;">🌐 Únete a nuestra Comunidad</h3>
             <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 15px;">
@@ -149,17 +263,20 @@
     <!-- SCRIPT DE NAVEGACIÓN -->
     <script>
         function changePage(pageId, element) {
-            // Ocultar todas las secciones
             document.querySelectorAll('.page-section').forEach(section => section.classList.remove('active'));
-            // Desmarcar pestañas del menú
             document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
             
-            // Mostrar la sección seleccionada y marcar la pestaña
             document.getElementById('sec-' + pageId).classList.add('active');
             element.classList.add('active');
-            
-            // Subir la página automáticamente al cambiar
             window.scrollTo(0, 0);
+        }
+
+        function changeClassTab(classId, btnElement) {
+            document.querySelectorAll('.tienda-section').forEach(section => section.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById('tienda-' + classId).classList.add('active');
+            btnElement.classList.add('active');
         }
     </script>
 </body>
